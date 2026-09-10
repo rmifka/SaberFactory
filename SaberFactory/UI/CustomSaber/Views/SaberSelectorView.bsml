@@ -12,29 +12,29 @@
                 </horizontal>
             </vertical>
             <sui.custom-list id='saber-list' title='' height='79' width='80' bg-color='$saber-selector'/>
-            <vertical pref-width='80' bg="round-rect-panel" custom-color='$saber-selector-sec' pad-left='2' pad-right='2' pad-top='1'
-                      pad-bottom='1'>
+            
+            <vertical pref-width='80' bg="round-rect-panel" custom-color='$saber-selector-sec' pad-left='2' pad-right='2' pad-top='1'>
                 <slider-setting text='Saber Width' value='saber-width' get-event='update-width' apply-on-change='true'
                                 max='~global-saber-width-max' increment='0.05'/>
             </vertical>
         </vertical>
         <vertical pad-top="13" preferred-width='15' child-control-height='false' child-expand-height='false'>
-
-            <horizontal pref-height='16' pref-width='12' horizontal-fit='PreferredSize'>
-                <sui.icon-button
-                        on-click='open-modelsaber'
-                        icon='#AddIcon'
-                        show-line='false'
-                        hover-hint='ModelSaber'
-                        hovered-color='#3486ebff'
-                        skew='0'
-                        use-gradient='false'>
-                    <horizontal active='~download-sabers-popup' pad='2' size-delta-x='42' anchor-pos-x='35' bg='round-rect-panel'
-                                bg-color='#00000070' ignore-layout='true'>
-                        <text align='Center' text='&lt;- Click here to download more sabers'/>
-                    </horizontal>
-                </sui.icon-button>
-            </horizontal>
+            
+<!--            <horizontal pref-height='16' pref-width='12' horizontal-fit='PreferredSize'>-->
+<!--                <sui.icon-button-->
+<!--                        on-click='open-modelsaber'-->
+<!--                        icon='#AddIcon'-->
+<!--                        show-line='false'-->
+<!--                        hover-hint='ModelSaber'-->
+<!--                        hovered-color='#3486ebff'-->
+<!--                        skew='0'-->
+<!--                        use-gradient='false'>-->
+<!--                    <horizontal active='~download-sabers-popup' pad='2' size-delta-x='42' anchor-pos-x='35' bg='round-rect-panel'-->
+<!--                                bg-color='#00000070' ignore-layout='true'>-->
+<!--                        <text align='Center' text='&lt;- Click here to download more sabers'/>-->
+<!--                    </horizontal>-->
+<!--                </sui.icon-button>-->
+<!--            </horizontal>-->
 
             <sui.icon-toggle-button
                     id='toggle-favorite'
@@ -74,7 +74,7 @@
                         use-gradient='false'/>
                 <modal-keyboard id="search-keyboard"/>
             </horizontal>
-            <horizontal pref-height='16' pref-width='12' horizontal-fit='PreferredSize'>
+            <vertical pref-height="10" pref-width='10' horizontal-fit='PreferredSize' vertical-fit="PreferredSize" spacing="8">
                 <sui.button
                         on-click='clear-search'
                         show-line='false'
@@ -82,7 +82,31 @@
                         hover-hint='Clear'
                         hovered-color='#3486ebff'
                         active="~should-show-clear"/>
-            </horizontal>
+            </vertical>
+            <vertical pref-height="8"
+                      pref-width="18"
+                      horizontal-fit='PreferredSize'
+                      vertical-fit='PreferredSize'
+                      child-align='MiddleCenter'
+                      pad-top="8">
+                <horizontal child-align='MiddleCenter'
+                            bg="round-rect-panel" custom-color='$saber-selector-sec'>
+                    <sui.button
+                            text="L"
+                            on-click='clicked-display-left'
+                            hover-hint='Display Left Saber'
+                            pref-height='8'/>
+
+                    <sui.button
+                            text="R"
+                            on-click='clicked-display-right'
+                            hover-hint='Display Right Saber'
+                            pref-height='8'/>
+                </horizontal>
+            </vertical>
+
+
+
         </vertical>
     </horizontal>
 

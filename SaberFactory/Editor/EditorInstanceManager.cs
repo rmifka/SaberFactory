@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using SaberFactory.Configuration;
 using SaberFactory.Instances;
 using SaberFactory.Models;
 using SaberFactory.Serialization;
 using SiraUtil.Logging;
-using SiraUtil.Tools;
 using UnityEngine;
-using Zenject;
 
 namespace SaberFactory.Editor
 {
@@ -17,32 +14,40 @@ namespace SaberFactory.Editor
     /// </summary>
     internal class EditorInstanceManager
     {
-        [Inject] private PluginConfig _config = null;
 
         public AssetTypeDefinition SelectedDefinition { get; }
         public SaberInstance CurrentSaber { get; private set; }
         public BasePieceInstance CurrentPiece { get; private set; }
         public ModelComposition CurrentModelComposition { get; private set; }
-
+        
+        private readonly PluginConfig _config; // I moved this from the inject, read on the mod making guide that this is better than [Inject]
         private readonly SiraLog _logger;
         private readonly SaberInstance.Factory _saberFactory;
         private readonly SaberSet _saberSet;
 
-        public EditorInstanceManager(SiraLog logger, SaberSet saberSet, PresetSaveManager presetSaveManager, SaberInstance.Factory saberFactory)
+        public EditorInstanceManager(SiraLog logger, SaberSet saberSet, PresetSaveManager presetSaveManager, SaberInstance.Factory saberFactory,
+            PluginConfig config)
         {
             _logger = logger;
             _saberSet = saberSet;
             _saberFactory = saberFactory;
+            _config = config;
 
             SelectedDefinition = AssetTypeDefinition.CustomSaber;
 
             presetSaveManager.OnSaberLoaded += delegate
             {
-                if (saberSet.LeftSaber.GetCustomSaberOrWhacker(out var customsaber))
+                var saber = _config.ShouldPreviewRightSaber
+                    ? saberSet.RightSaber
+                    : saberSet.LeftSaber;
+
+                if (saber.GetCustomSaberOrWhacker(out var customSaber))
                 {
-                    SetModelComposition(customsaber.ModelComposition, false);
+                    _logger.Info(customSaber.SaberSlot);
+                    SetModelComposition(customSaber.ModelComposition, false);
                 }
             };
+
         }
 
         public void SetShowWorldParticles(bool show)

@@ -163,10 +163,12 @@ namespace SaberFactory.Editor
         private async void OnModelCompositionSet(ModelComposition composition)
         {
             _spawnedSaber?.Destroy();
+            
+            var saber = _pluginConfig.ShouldPreviewRightSaber ? _saberSet.RightSaber : _saberSet.LeftSaber;
 
             var parent = IsSaberInHand ? _saberGrabController.GrabContainer : _pedestal.SaberContainerTransform;
 
-            _spawnedSaber = _editorInstanceManager.CreateSaber(_saberSet.LeftSaber, parent);
+            _spawnedSaber = _editorInstanceManager.CreateSaber(saber, parent);
 
             if (IsSaberInHand)
             {
@@ -178,7 +180,12 @@ namespace SaberFactory.Editor
                 _saberGrabController.ShowHandle();
             }
 
-            _spawnedSaber.SetColor(_playerDataModel.playerData.colorSchemesSettings.GetSelectedColorScheme().saberAColor);
+            var color = _pluginConfig.ShouldPreviewRightSaber
+                ? _playerDataModel.playerData.colorSchemesSettings.GetSelectedColorScheme().saberBColor
+                : _playerDataModel.playerData.colorSchemesSettings.GetSelectedColorScheme().saberAColor; // Idk if I should split the assignment but I
+            // think compiler optimizes the other one away :shrug:
+            
+            _spawnedSaber.SetColor(color);
 
             _editorInstanceManager.RaiseSaberCreatedEvent();
             _editorInstanceManager.RaisePieceCreatedEvent();

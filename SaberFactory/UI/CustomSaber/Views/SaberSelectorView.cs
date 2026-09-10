@@ -428,5 +428,19 @@ namespace SaberFactory.UI.CustomSaber.Views
         {
             Process.Start(MODELSABER_LINK);
         }
+
+        [UIAction("clicked-display-left")]
+        private void DisplayLeftSaberPreview()
+        {
+            _pluginConfig.ShouldPreviewRightSaber = false;
+            _editorInstanceManager.Refresh();
+        }
+        
+        [UIAction("clicked-display-right")]
+        private void DisplayRightSaberPreview()
+        {
+            _pluginConfig.ShouldPreviewRightSaber = true;
+            _editorInstanceManager.Refresh();
+        }
     }
 }

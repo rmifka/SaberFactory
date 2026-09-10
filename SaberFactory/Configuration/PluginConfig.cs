@@ -90,6 +90,10 @@ namespace SaberFactory.Configuration
                 OnFilterModeChanged?.Invoke(value);
             }
         }
+        
+        // Wether the left or the right saber should be shown in the preview
+        // true = rightSaber, false = leftSaber
+        public bool ShouldPreviewRightSaber = false;
 
         /// <summary>
         ///     Add an asset to the favorites list

@@ -319,7 +319,8 @@ namespace SaberFactory.UI.CustomSaber.Views
                 //on pedestal
                 _trailPreviewer.Create(saberInstance.GameObject.transform.parent, trailData, UseVertexColorOnly);
                 LoadFromModel(trailData);
-                _trailPreviewer.SetColor(_playerDataModel.playerData.colorSchemesSettings.GetSelectedColorScheme().saberAColor);
+                var colorScheme = _playerDataModel.playerData.colorSchemesSettings.GetSelectedColorScheme();
+                _trailPreviewer.SetColor(_pluginConfig.ShouldPreviewRightSaber ? colorScheme.saberBColor : colorScheme.saberAColor);
                 RefreshButtonActive = false;
             }
         }
